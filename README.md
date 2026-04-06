@@ -1,2 +1,2 @@
 # Hefesto
-For the of the Gods
+For the Gods
