@@ -11,11 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-
 <style>
-/* ============================================
-   CSS VARIABLES — HEFESTO COLOR SYSTEM
-   ============================================ */
 :root {
   --forge:        #102136;
   --forge-deep:   #0C1A2B;
@@ -26,1103 +22,657 @@
   --steel:        #A8B2BC;
   --steel-muted:  #6B7F8F;
   --steel-halo:   rgba(168,178,188,0.12);
-  --steel-glow:   rgba(168,178,188,0.08);
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body:    'DM Sans', sans-serif;
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ============================================
-   RESET & BASE
-   ============================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--forge);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: none;
+background: var(–forge);
+color: var(–white);
+font-family: var(–font-body);
+font-size: 16px;
+line-height: 1.6;
+overflow-x: hidden;
+cursor: none;
 }
 
-/* Grain overlay */
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 9999;
+opacity: 0.035;
 }
 
-/* Custom cursor */
 .cursor {
-  width: 8px; height: 8px;
-  background: var(--steel);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 99999;
-  transition: transform 0.15s var(--ease-out), width 0.2s, height 0.2s, background 0.2s;
-  transform: translate(-50%, -50%);
+width: 8px; height: 8px;
+background: var(–steel);
+border-radius: 50%;
+position: fixed;
+top: 0; left: 0;
+pointer-events: none;
+z-index: 99999;
+transition: width 0.2s, height 0.2s, background 0.2s;
+transform: translate(-50%, -50%);
 }
 .cursor.expand {
-  width: 28px; height: 28px;
-  background: transparent;
-  border: 1px solid var(--steel);
+width: 28px; height: 28px;
+background: transparent;
+border: 1px solid var(–steel);
 }
 
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
-button { cursor: none; border: none; background: none; font-family: var(--font-body); }
+button { cursor: none; border: none; background: none; font-family: var(–font-body); }
 
-/* ============================================
-   TYPOGRAPHY UTILITIES
-   ============================================ */
 .eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--steel);
+font-family: var(–font-body);
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: var(–steel);
 }
 
 h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+font-family: var(–font-display);
+font-weight: 700;
+line-height: 1.05;
+letter-spacing: -0.01em;
 }
 
-/* ============================================
-   SCROLL ANIMATIONS
-   ============================================ */
+/* Scroll Animations */
 .reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+opacity: 0;
+transform: translateY(40px);
+transition: opacity 0.7s var(–ease-out), transform 0.7s var(–ease-out);
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
 
-/* ============================================
-   MODAL OVERLAY
-   ============================================ */
+/* Modal */
 #modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 15, 24, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out);
+position: fixed; inset: 0;
+background: rgba(8,15,24,0.88);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+z-index: 10000;
+display: flex; align-items: center; justify-content: center;
+padding: 20px;
+opacity: 0;
+transition: opacity 0.4s var(–ease-out);
 }
 #modal-overlay.visible { opacity: 1; }
-#modal-overlay.hidden { display: none; }
+#modal-overlay.hidden  { display: none; }
 
 #modal {
-  background: var(--forge-deep);
-  border: 1px solid var(--steel);
-  border-top: 2px solid var(--steel);
-  border-radius: 4px;
-  max-width: 520px;
-  width: 100%;
-  padding: 48px 40px 40px;
-  position: relative;
-  box-shadow: 0 0 80px rgba(168,178,188,0.12);
-  transform: scale(0.94);
-  transition: transform 0.5s var(--ease-out);
-  text-align: center;
+background: var(–forge-deep);
+border: 1px solid var(–steel);
+border-top: 2px solid var(–steel);
+border-radius: 4px;
+max-width: 520px; width: 100%;
+padding: 48px 40px 40px;
+position: relative;
+box-shadow: 0 0 80px rgba(168,178,188,0.12);
+transform: scale(0.94);
+transition: transform 0.5s var(–ease-out);
+text-align: center;
 }
 #modal-overlay.visible #modal { transform: scale(1); }
 
 .modal-close {
-  position: absolute;
-  top: 16px; right: 20px;
-  color: var(--steel);
-  font-size: 20px;
-  cursor: none;
-  transition: transform 0.3s var(--ease-out), color 0.2s;
-  background: none;
-  border: none;
-  line-height: 1;
+position: absolute; top: 16px; right: 20px;
+color: var(–steel); font-size: 20px;
+cursor: none; background: none; border: none; line-height: 1;
+transition: transform 0.3s var(–ease-out), color 0.2s;
 }
-.modal-close:hover { transform: rotate(90deg); color: var(--white); }
+.modal-close:hover { transform: rotate(90deg); color: var(–white); }
 
-.modal-icon {
-  margin: 0 auto 16px;
-  width: 40px; height: 40px;
-}
-
-.modal-rule {
-  width: 80px; height: 1px;
-  background: var(--steel);
-  margin: 0 auto 24px;
-}
+.modal-icon { margin: 0 auto 16px; width: 40px; height: 40px; }
+.modal-rule  { width: 80px; height: 1px; background: var(–steel); margin: 0 auto 24px; }
 
 #modal h2 {
-  font-size: clamp(26px, 4vw, 34px);
-  color: var(--white);
-  margin-bottom: 12px;
-  text-transform: uppercase;
+font-size: clamp(26px, 4vw, 34px);
+color: var(–white); margin-bottom: 12px; text-transform: uppercase;
 }
-
 #modal p {
-  font-size: 14px;
-  color: var(--white-dim);
-  margin-bottom: 28px;
-  max-width: 360px;
-  margin-left: auto;
-  margin-right: auto;
+font-size: 14px; color: var(–white-dim); margin-bottom: 28px;
+max-width: 360px; margin-left: auto; margin-right: auto;
 }
 
 .modal-meander {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 8px;
-  opacity: 0.2;
-  overflow: hidden;
+position: absolute; bottom: 0; left: 0; right: 0;
+height: 8px; opacity: 0.2; overflow: hidden;
 }
 
 .modal-success {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 0;
+display: none; flex-direction: column;
+align-items: center; gap: 12px; padding: 20px 0;
 }
 .modal-success.visible { display: flex; }
-.modal-success svg { animation: draw-check 0.6s var(--ease-out) forwards; }
+.modal-success svg { animation: draw-check 0.6s var(–ease-out) forwards; }
 @keyframes draw-check {
-  from { stroke-dashoffset: 60; opacity: 0; }
-  to { stroke-dashoffset: 0; opacity: 1; }
+from { stroke-dashoffset: 60; opacity: 0; }
+to   { stroke-dashoffset: 0;  opacity: 1; }
 }
-.modal-success h3 {
-  font-size: 22px;
-  color: var(--white);
-  text-transform: uppercase;
-}
-.modal-success span { color: var(--steel); font-size: 14px; font-style: italic; }
+.modal-success h3 { font-size: 22px; color: var(–white); text-transform: uppercase; }
+.modal-success span { color: var(–steel); font-size: 14px; font-style: italic; }
 
-/* ============================================
-   FORM ELEMENTS
-   ============================================ */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
+/* Forms */
+.form-group { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 
 .forge-input {
-  width: 100%;
-  height: 52px;
-  background: var(--forge);
-  border: 1px solid var(--steel-muted);
-  border-radius: 3px;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 14px;
-  padding: 0 18px;
-  outline: none;
-  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s;
+width: 100%; height: 52px;
+background: var(–forge);
+border: 1px solid var(–steel-muted);
+border-radius: 3px;
+color: var(–white);
+font-family: var(–font-body); font-size: 14px;
+padding: 0 18px; outline: none;
+transition: border-color 0.3s var(–ease-out), box-shadow 0.3s;
 }
-.forge-input::placeholder { color: var(--steel-muted); }
+.forge-input::placeholder { color: var(–steel-muted); }
 .forge-input:focus {
-  border-color: var(--steel);
-  box-shadow: 0 0 0 3px var(--steel-halo);
+border-color: var(–steel);
+box-shadow: 0 0 0 3px var(–steel-halo);
 }
 
 .forge-btn {
-  width: 100%;
-  height: 52px;
-  background: var(--steel);
-  color: var(--forge);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 3px;
-  cursor: none;
-  position: relative;
-  overflow: hidden;
-  transition: filter 0.2s, transform 0.15s;
+width: 100%; height: 52px;
+background: var(–steel); color: var(–forge);
+font-family: var(–font-body); font-size: 13px;
+font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+border: none; border-radius: 3px; cursor: none;
+position: relative; overflow: hidden;
+transition: filter 0.2s, transform 0.15s;
 }
 .forge-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.12);
-  transform: translateX(-100%);
-  transition: transform 0.4s var(--ease-out);
+content: ‘’; position: absolute; inset: 0;
+background: rgba(255,255,255,0.12);
+transform: translateX(-100%);
+transition: transform 0.4s var(–ease-out);
 }
 .forge-btn:hover::before { transform: translateX(0); }
-.forge-btn:hover { filter: brightness(1.08); }
+.forge-btn:hover  { filter: brightness(1.08); }
 .forge-btn:active { transform: scale(0.98); }
 
 .microcopy {
-  font-size: 11px;
-  color: var(--steel-muted);
-  text-align: center;
-  margin-top: 8px;
+font-size: 11px; color: var(–steel-muted);
+text-align: center; margin-top: 8px;
 }
 
-/* ============================================
-   NAVIGATION
-   ============================================ */
+/* Nav */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 0 40px;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.4s var(--ease-out), border-color 0.4s;
-  border-bottom: 1px solid transparent;
+position: fixed; top: 0; left: 0; right: 0;
+z-index: 1000; padding: 0 40px; height: 68px;
+display: flex; align-items: center; justify-content: space-between;
+transition: background 0.4s var(–ease-out), border-color 0.4s;
+border-bottom: 1px solid transparent;
 }
 nav.scrolled {
-  background: rgba(12, 26, 43, 0.97);
-  border-bottom-color: rgba(168,178,188,0.15);
-  backdrop-filter: blur(12px);
+background: rgba(12,26,43,0.97);
+border-bottom-color: rgba(168,178,188,0.15);
+backdrop-filter: blur(12px);
 }
 
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--steel);
-  letter-spacing: 0.08em;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+font-family: var(–font-display);
+font-size: 22px; font-weight: 700;
+color: var(–steel); letter-spacing: 0.08em;
+display: flex; align-items: center; gap: 10px;
 }
 .nav-logo svg { width: 20px; height: 20px; }
 
-.nav-links {
-  display: flex;
-  gap: 36px;
-  list-style: none;
-}
+.nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--white-dim);
-  text-transform: uppercase;
-  transition: color 0.2s;
-  position: relative;
+font-size: 12px; font-weight: 500;
+letter-spacing: 0.1em; color: var(–white-dim);
+text-transform: uppercase; transition: color 0.2s;
+position: relative;
 }
 .nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0; right: 0;
-  height: 1px;
-  background: var(--steel);
-  transform: scaleX(0);
-  transition: transform 0.3s var(--ease-out);
+content: ‘’; position: absolute;
+bottom: -4px; left: 0; right: 0;
+height: 1px; background: var(–steel);
+transform: scaleX(0);
+transition: transform 0.3s var(–ease-out);
 }
-.nav-links a:hover, .nav-links a.active { color: var(--steel); }
+.nav-links a:hover, .nav-links a.active { color: var(–steel); }
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
 .nav-cta {
-  height: 38px;
-  padding: 0 22px;
-  border: 1px solid var(--steel);
-  color: var(--steel);
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  transition: background 0.3s var(--ease-out), color 0.3s;
-  display: flex; align-items: center;
+height: 38px; padding: 0 22px;
+border: 1px solid var(–steel); color: var(–steel);
+font-family: var(–font-body); font-size: 11px;
+font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+border-radius: 2px;
+transition: background 0.3s var(–ease-out), color 0.3s;
+display: flex; align-items: center;
 }
-.nav-cta:hover { background: var(--steel); color: var(--forge); }
+.nav-cta:hover { background: var(–steel); color: var(–forge); }
 
 .hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: none;
-  background: none; border: none;
-  padding: 4px;
+display: none; flex-direction: column; gap: 5px;
+cursor: none; background: none; border: none; padding: 4px;
 }
 .hamburger span {
-  display: block;
-  width: 24px; height: 1px;
-  background: var(--steel);
-  transition: transform 0.3s, opacity 0.3s;
+display: block; width: 24px; height: 1px;
+background: var(–steel);
+transition: transform 0.3s, opacity 0.3s;
 }
 .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 .mobile-menu {
-  position: fixed;
-  inset: 0;
-  background: var(--forge-deep);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease-out);
+position: fixed; inset: 0;
+background: var(–forge-deep);
+z-index: 999;
+display: flex; flex-direction: column;
+align-items: center; justify-content: center; gap: 32px;
+opacity: 0; pointer-events: none;
+transition: opacity 0.35s var(–ease-out);
 }
 .mobile-menu.open { opacity: 1; pointer-events: all; }
 .mobile-menu a {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: color 0.2s;
+font-family: var(–font-display);
+font-size: 36px; font-weight: 700;
+color: var(–white); text-transform: uppercase;
+transition: color 0.2s;
 }
-.mobile-menu a:hover { color: var(--steel); }
+.mobile-menu a:hover { color: var(–steel); }
 
-/* ============================================
-   HERO
-   ============================================ */
+/* Hero */
 #hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 40px 80px;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, #1A3550 0%, #102136 60%, #0C1A2B 100%);
+min-height: 100vh;
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+text-align: center;
+padding: 120px 40px 80px;
+position: relative; overflow: hidden;
+background: radial-gradient(ellipse 80% 60% at 50% 40%, #1A3550 0%, #102136 60%, #0C1A2B 100%);
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 760px;
-}
+.hero-content { position: relative; z-index: 2; max-width: 760px; }
 
 .hero-eyebrow {
-  margin-bottom: 28px;
-  animation: fade-up 0.8s var(--ease-out) 0.2s both;
+margin-bottom: 28px;
+animation: fade-up 0.8s var(–ease-out) 0.2s both;
 }
 
 #hero h1 {
-  font-size: clamp(44px, 7vw, 88px);
-  color: var(--white);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  animation: fade-up 0.9s var(--ease-out) 0.4s both;
+font-size: clamp(52px, 8vw, 100px);
+color: var(–white); text-transform: uppercase;
+margin-bottom: 20px; line-height: 0.95;
+animation: fade-up 0.9s var(–ease-out) 0.4s both;
 }
 
 .hero-sub {
-  font-size: clamp(15px, 2vw, 18px);
-  color: var(--white-dim);
-  margin-bottom: 48px;
-  animation: fade-up 0.9s var(--ease-out) 0.6s both;
+font-size: clamp(16px, 2vw, 20px);
+color: var(–white-dim); margin-bottom: 48px;
+font-style: italic; font-family: var(–font-display);
+letter-spacing: 0.06em;
+animation: fade-up 0.9s var(–ease-out) 0.6s both;
 }
 
 .hero-form {
-  max-width: 460px;
-  margin: 0 auto;
-  animation: fade-up 0.9s var(--ease-out) 0.8s both;
+max-width: 460px; margin: 0 auto;
+animation: fade-up 0.9s var(–ease-out) 0.8s both;
 }
 
 .scroll-indicator {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  animation: fade-up 1s var(--ease-out) 1.4s both;
+position: absolute; bottom: 36px;
+left: 50%; transform: translateX(-50%);
+display: flex; flex-direction: column;
+align-items: center; gap: 8px;
+animation: fade-up 1s var(–ease-out) 1.4s both;
 }
 .scroll-line {
-  width: 1px; height: 48px;
-  background: linear-gradient(to bottom, var(--steel), transparent);
-  animation: scroll-pulse 2s ease-in-out infinite;
+width: 1px; height: 48px;
+background: linear-gradient(to bottom, var(–steel), transparent);
+animation: scroll-pulse 2s ease-in-out infinite;
 }
 @keyframes scroll-pulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.1); }
+0%, 100% { opacity: 0.3; }
+50%       { opacity: 1; }
 }
 .scroll-indicator span {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--steel-muted);
-  text-transform: uppercase;
+font-size: 10px; letter-spacing: 0.2em;
+color: var(–steel-muted); text-transform: uppercase;
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(32px); }
-  to { opacity: 1; transform: translateY(0); }
+from { opacity: 0; transform: translateY(32px); }
+to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================
-   SECTION BASE
-   ============================================ */
-section {
-  padding: 100px 40px;
-  position: relative;
-}
+/* Sections */
+section { padding: 100px 40px; position: relative; }
+.section-inner { max-width: 1160px; margin: 0 auto; }
+.section-divider { width: 100%; height: 1px; background: rgba(168,178,188,0.1); }
+.bg-deep { background: var(–forge-deep); }
+.bg-base { background: var(–forge); }
 
-.section-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
-.section-divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(168,178,188,0.12);
-}
-
-/* Alternating backgrounds */
-.bg-deep { background: var(--forge-deep); }
-.bg-base { background: var(--forge); }
-.bg-dark { background: var(--forge-dark); }
-
-/* ============================================
-   ORIGIN / MYTHOLOGY
-   ============================================ */
+/* Origen */
 #origen .section-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 80px; align-items: center;
 }
-
-.origen-text {
-  position: relative;
-  padding-left: 28px;
-}
+.origen-text { position: relative; padding-left: 28px; }
 .origen-text::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 2px;
-  background: var(--steel);
+content: ‘’; position: absolute;
+left: 0; top: 0; bottom: 0;
+width: 2px; background: var(–steel);
 }
-
 .origen-text .eyebrow { margin-bottom: 20px; }
-
 .origen-text h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 32px;
+font-size: clamp(28px, 3.5vw, 46px);
+text-transform: uppercase; color: var(–white); margin-bottom: 28px;
 }
-
 .origen-text p {
-  font-size: 15px;
-  color: var(--white-dim);
-  line-height: 1.8;
-  margin-bottom: 20px;
+font-size: 15px; color: var(–white-dim);
+line-height: 1.85; margin-bottom: 18px;
 }
+.origen-text p:last-child { margin-bottom: 0; }
 
 .origen-visual {
-  background: var(--forge-mid);
-  border-radius: 4px;
-  aspect-ratio: 4/5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+background: var(–forge-mid); border-radius: 4px;
+aspect-ratio: 4/5;
+display: flex; align-items: center; justify-content: center;
+position: relative; overflow: hidden;
 }
 .origen-visual::before {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(168,178,188,0.15);
-  border-radius: 2px;
+content: ‘’; position: absolute; inset: 12px;
+border: 1px solid rgba(168,178,188,0.12); border-radius: 2px;
 }
-.origen-visual svg {
-  width: 140px; height: 140px;
-  opacity: 0.45;
-  color: var(--steel);
-}
+.origen-visual svg { width: 140px; height: 140px; opacity: 0.4; color: var(–steel); }
 
-/* ============================================
-   ARSENAL / PRODUCTS
-   ============================================ */
-#arsenal .section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
+/* Arsenal */
+#arsenal .section-header { text-align: center; margin-bottom: 60px; }
 #arsenal .section-header .eyebrow { margin-bottom: 16px; }
 #arsenal .section-header h2 {
-  font-size: clamp(34px, 5vw, 60px);
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 12px;
+font-size: clamp(34px, 5vw, 60px);
+text-transform: uppercase; color: var(–white); margin-bottom: 12px;
 }
-#arsenal .section-header p {
-  color: var(--white-dim);
-  font-size: 15px;
-}
+#arsenal .section-header p { color: var(–white-dim); font-size: 15px; }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
 .product-card {
-  background: var(--forge-mid);
-  border: 1px solid var(--steel-halo);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s;
+background: var(–forge-mid);
+border: 1px solid var(–steel-halo);
+border-radius: 4px; overflow: hidden;
+transition: transform 0.35s var(–ease-out), border-color 0.35s, box-shadow 0.35s;
 }
 .product-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(168,178,188,0.4);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(168,178,188,0.08);
+transform: translateY(-6px);
+border-color: rgba(168,178,188,0.35);
+box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(168,178,188,0.06);
 }
-
 .product-img {
-  aspect-ratio: 1;
-  background: var(--forge-deep);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+aspect-ratio: 1; background: var(–forge-deep);
+display: flex; align-items: center; justify-content: center;
+position: relative;
 }
 .product-img::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 20%, rgba(168,178,188,0.06), transparent 70%);
+content: ‘’; position: absolute; inset: 0;
+background: radial-gradient(ellipse at 50% 20%, rgba(168,178,188,0.05), transparent 70%);
 }
-.product-img svg {
-  width: 64px; height: 64px;
-  color: var(--steel-muted);
-  opacity: 0.5;
-}
+.product-img svg { width: 64px; height: 64px; color: var(–steel-muted); opacity: 0.45; }
 
-.product-info {
-  padding: 20px;
-}
+.product-info { padding: 20px; }
 .product-info h3 {
-  font-size: 18px;
-  color: var(--white);
-  text-transform: uppercase;
-  margin-bottom: 6px;
+font-size: 17px; color: var(–white);
+text-transform: uppercase; margin-bottom: 6px;
+font-family: var(–font-display); font-weight: 700; letter-spacing: 0.04em;
 }
 .product-descriptor {
-  font-size: 13px;
-  color: var(--steel);
-  font-style: italic;
-  margin-bottom: 16px;
+font-size: 13px; color: var(–steel);
+font-style: italic; margin-bottom: 18px; line-height: 1.5;
 }
-.product-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.product-price {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--white);
-}
+.product-bottom { display: flex; justify-content: flex-end; }
 .product-btn {
-  height: 34px;
-  padding: 0 16px;
-  border: 1px solid var(--steel);
-  color: var(--steel);
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  transition: background 0.25s, color 0.25s;
+height: 34px; padding: 0 18px;
+border: 1px solid var(–steel); color: var(–steel);
+font-family: var(–font-body); font-size: 11px;
+font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+border-radius: 2px; background: none;
+transition: background 0.25s, color 0.25s;
 }
-.product-btn:hover { background: var(--steel); color: var(--forge); }
+.product-btn:hover { background: var(–steel); color: var(–forge); }
 
-/* ============================================
-   RITUAL / HOW IT WORKS
-   ============================================ */
-#ritual .section-header {
-  text-align: center;
-  margin-bottom: 72px;
-}
+/* Ritual */
+#ritual .section-header { text-align: center; margin-bottom: 72px; }
 #ritual .section-header .eyebrow { margin-bottom: 16px; }
 #ritual .section-header h2 {
-  font-size: clamp(30px, 4.5vw, 54px);
-  text-transform: uppercase;
-  color: var(--white);
+font-size: clamp(30px, 4.5vw, 54px);
+text-transform: uppercase; color: var(–white);
 }
 
 .steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  position: relative;
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 0; position: relative;
 }
 .steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  left: calc(16.66% + 20px);
-  right: calc(16.66% + 20px);
-  height: 1px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--steel-muted) 0, var(--steel-muted) 6px,
-    transparent 6px, transparent 14px
-  );
+content: ‘’; position: absolute;
+top: 84px;
+left: calc(16.66% + 20px); right: calc(16.66% + 20px);
+height: 1px;
+background: repeating-linear-gradient(
+to right,
+var(–steel-muted) 0, var(–steel-muted) 6px,
+transparent 6px, transparent 14px
+);
 }
-
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0 32px;
-  position: relative;
-}
-
+.step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 32px; }
 .step-number {
-  font-family: var(--font-display);
-  font-size: 56px;
-  font-weight: 700;
-  color: var(--steel);
-  line-height: 1;
-  margin-bottom: 16px;
-  opacity: 0.6;
+font-family: var(–font-display); font-size: 56px;
+font-weight: 700; color: var(–steel);
+line-height: 1; margin-bottom: 16px; opacity: 0.5;
 }
-
 .step-icon {
-  width: 56px; height: 56px;
-  border: 1px solid var(--steel-halo);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  background: var(--forge-deep);
+width: 56px; height: 56px;
+border: 1px solid var(–steel-halo); border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+margin: 0 auto 28px; background: var(–forge-deep);
 }
-.step-icon svg { width: 24px; height: 24px; color: var(--steel); }
-
+.step-icon svg { width: 24px; height: 24px; color: var(–steel); }
 .step h3 {
-  font-size: 20px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 12px;
+font-size: 18px; text-transform: uppercase;
+color: var(–white); margin-bottom: 12px; letter-spacing: 0.05em;
 }
-.step p {
-  font-size: 14px;
-  color: var(--white-dim);
-  line-height: 1.75;
-}
+.step p { font-size: 14px; color: var(–white-dim); line-height: 1.75; }
 
-/* ============================================
-   PRESS LOGOS STRIP
-   ============================================ */
+/* Press */
 #prensa {
-  padding: 48px 40px;
-  background: var(--forge-deep);
-  border-top: 1px solid rgba(168,178,188,0.08);
-  border-bottom: 1px solid rgba(168,178,188,0.08);
+padding: 48px 40px;
+background: var(–forge-deep);
+border-top: 1px solid rgba(168,178,188,0.07);
+border-bottom: 1px solid rgba(168,178,188,0.07);
 }
 .press-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
+max-width: 900px; margin: 0 auto;
+display: flex; align-items: center;
+justify-content: center; gap: 48px; flex-wrap: wrap;
 }
 .press-label {
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--steel-muted);
-  white-space: nowrap;
+font-size: 10px; letter-spacing: 0.25em;
+text-transform: uppercase; color: var(–steel-muted); white-space: nowrap;
 }
-.press-logos {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+.press-logos { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; justify-content: center; }
 .press-logo {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--steel-muted);
-  letter-spacing: 0.05em;
-  opacity: 0.5;
-  transition: opacity 0.2s;
+font-family: var(–font-display); font-size: 17px;
+font-weight: 600; color: var(–steel-muted);
+letter-spacing: 0.05em; opacity: 0.45; transition: opacity 0.25s;
 }
-.press-logo:hover { opacity: 0.9; }
+.press-logo:hover { opacity: 0.85; }
 
-/* ============================================
-   TESTIMONIALS
-   ============================================ */
-#hermandad .section-header {
-  text-align: center;
-  margin-bottom: 56px;
-}
-#hermandad .section-header .eyebrow { margin-bottom: 16px; }
-#hermandad .section-header h2 {
-  font-size: clamp(28px, 4vw, 50px);
-  text-transform: uppercase;
-  color: var(--white);
-}
+/* Hermandad — hidden, preserved for future use */
+#hermandad { display: none; }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
-}
+/* Testimonials internal styles (kept for when section re-enables) */
+.testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 48px; }
+.testimonial-card { background: var(–forge-mid); border-top: 2px solid var(–steel); border-radius: 0 0 4px 4px; padding: 32px 28px; }
+.stars { display: flex; gap: 4px; margin-bottom: 20px; }
+.stars svg { width: 14px; height: 14px; }
+.testimonial-card blockquote { font-family: var(–font-display); font-size: 17px; font-style: italic; color: var(–white); line-height: 1.55; margin-bottom: 20px; }
+.testimonial-author { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(–steel); }
+.social-proof { text-align: center; font-family: var(–font-display); font-size: 22px; color: var(–white); }
 
-.testimonial-card {
-  background: var(--forge-mid);
-  border-top: 2px solid var(--steel);
-  border-radius: 0 0 4px 4px;
-  padding: 32px 28px;
-}
-
-.stars {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-}
-.stars svg {
-  width: 14px; height: 14px;
-  color: var(--steel);
-  fill: var(--steel);
-}
-
-.testimonial-card blockquote {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-style: italic;
-  color: var(--white);
-  line-height: 1.55;
-  margin-bottom: 20px;
-}
-
-.testimonial-author {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
-
-.social-proof {
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: 22px;
-  color: var(--white);
-  letter-spacing: 0.02em;
-}
-
-/* ============================================
-   SECONDARY CTA
-   ============================================ */
-#cta-footer {
-  background: var(--forge-deep);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-#cta-footer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
-  opacity: 0.04;
-  pointer-events: none;
-}
-
+/* Secondary CTA */
+#olimpo { background: var(–forge-deep); text-align: center; position: relative; overflow: hidden; }
 .cta-hammer {
-  position: absolute;
-  right: -80px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.04;
-  width: 400px; height: 400px;
-  color: var(--steel);
+position: absolute; right: -80px; top: 50%;
+transform: translateY(-50%);
+opacity: 0.03; width: 400px; height: 400px; color: var(–steel);
 }
+#olimpo .eyebrow { margin-bottom: 20px; }
+#olimpo h2 {
+font-size: clamp(34px, 5vw, 64px);
+text-transform: uppercase; color: var(–white); margin-bottom: 14px;
+}
+.cta-sub { color: var(–white-dim); margin-bottom: 40px; font-size: 15px; }
+.cta-form { max-width: 460px; margin: 0 auto; }
 
-#cta-footer .eyebrow { margin-bottom: 20px; }
-#cta-footer h2 {
-  font-size: clamp(34px, 5vw, 64px);
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 14px;
-}
-#cta-footer p {
-  color: var(--white-dim);
-  margin-bottom: 40px;
-  font-size: 15px;
-}
-#cta-footer .hero-form {
-  animation: none;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
+/* Footer */
 footer {
-  background: var(--forge-dark);
-  padding: 60px 40px 40px;
-  border-top: 1px solid rgba(168,178,188,0.1);
+background: var(–forge-dark);
+padding: 60px 40px 40px;
+border-top: 1px solid rgba(168,178,188,0.08);
 }
-
-.footer-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
+.footer-inner { max-width: 1160px; margin: 0 auto; }
 .footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid rgba(168,178,188,0.08);
+display: flex; justify-content: space-between; align-items: flex-start;
+margin-bottom: 48px; padding-bottom: 48px;
+border-bottom: 1px solid rgba(168,178,188,0.07);
 }
-
 .footer-brand {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--steel);
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+font-family: var(–font-display); font-size: 28px;
+font-weight: 700; color: var(–steel); letter-spacing: 0.08em; margin-bottom: 8px;
 }
-.footer-tagline {
-  font-size: 12px;
-  color: var(--steel-muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.footer-nav {
-  display: flex;
-  gap: 56px;
-}
+.footer-tagline { font-size: 11px; color: var(–steel-muted); letter-spacing: 0.18em; text-transform: uppercase; }
+.footer-nav { display: flex; gap: 56px; }
 .footer-col h4 {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--steel);
-  margin-bottom: 16px;
-  font-family: var(--font-body);
-  font-weight: 600;
+font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+color: var(–steel); margin-bottom: 16px;
+font-family: var(–font-body); font-weight: 600;
 }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col a {
-  font-size: 13px;
-  color: var(--steel-muted);
-  transition: color 0.2s;
-}
-.footer-col a:hover { color: var(--white); }
-
-.footer-socials {
-  display: flex;
-  gap: 16px;
-}
+.footer-col a { font-size: 13px; color: var(–steel-muted); transition: color 0.2s; }
+.footer-col a:hover { color: var(–white); }
+.footer-socials { display: flex; gap: 14px; align-items: flex-start; }
 .social-btn {
-  width: 40px; height: 40px;
-  border: 1px solid var(--steel-halo);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s, background 0.2s;
+width: 40px; height: 40px;
+border: 1px solid var(–steel-halo); border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+transition: border-color 0.2s, background 0.2s;
 }
-.social-btn:hover { border-color: var(--steel); background: var(--steel-halo); }
-.social-btn svg { width: 16px; height: 16px; color: var(--steel); }
+.social-btn:hover { border-color: var(–steel); background: var(–steel-halo); }
+.social-btn svg { width: 16px; height: 16px; color: var(–steel); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-legal { font-size: 12px; color: var(–steel-muted); opacity: 0.55; }
 
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-legal {
-  font-size: 12px;
-  color: var(--steel-muted);
-  opacity: 0.6;
-}
-
-/* ============================================
-   MOBILE STICKY BAR
-   ============================================ */
+/* Mobile sticky */
 #sticky-mobile {
-  display: none;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 500;
-  padding: 12px 20px;
-  background: rgba(12, 26, 43, 0.98);
-  border-top: 1px solid rgba(168,178,188,0.15);
-  backdrop-filter: blur(12px);
-  transform: translateY(100%);
-  transition: transform 0.35s var(--ease-out);
+display: none; position: fixed;
+bottom: 0; left: 0; right: 0; z-index: 500;
+padding: 12px 20px;
+background: rgba(12,26,43,0.98);
+border-top: 1px solid rgba(168,178,188,0.12);
+backdrop-filter: blur(12px);
+transform: translateY(100%);
+transition: transform 0.35s var(–ease-out);
 }
 #sticky-mobile.visible { transform: translateY(0); }
-#sticky-mobile .forge-btn { border-radius: 3px; }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* Responsive */
 @media (max-width: 1024px) {
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-nav { gap: 32px; }
+.products-grid { grid-template-columns: repeat(2, 1fr); }
+.footer-nav { gap: 32px; }
 }
 
 @media (max-width: 768px) {
-  section { padding: 72px 24px; }
-  nav { padding: 0 24px; }
-
-  .nav-links, .nav-cta { display: none; }
-  .hamburger { display: flex; }
-  #sticky-mobile { display: block; }
-
-  #hero { padding: 100px 24px 100px; }
-
-  #origen .section-inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .origen-visual { max-height: 280px; }
-
-  .products-grid { grid-template-columns: 1fr; }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .steps-grid::before { display: none; }
-  .step { flex-direction: row; text-align: left; gap: 24px; padding: 0; }
-  .step-number { font-size: 40px; min-width: 48px; }
-
-  .testimonials-grid { grid-template-columns: 1fr; }
-
-  .footer-top { flex-direction: column; gap: 40px; }
-  .footer-nav { flex-direction: column; gap: 28px; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-
-  .cursor { display: none; }
-  body { cursor: auto; }
-  button { cursor: pointer; }
-  .forge-btn { cursor: pointer; }
-  .modal-close { cursor: pointer; }
-  .nav-cta { cursor: pointer; }
+section { padding: 72px 24px; }
+nav { padding: 0 24px; }
+.nav-links, .nav-cta { display: none; }
+.hamburger { display: flex; }
+#sticky-mobile { display: block; }
+#hero { padding: 100px 24px 100px; }
+#origen .section-inner { grid-template-columns: 1fr; gap: 48px; }
+.origen-visual { max-height: 260px; }
+.products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+.steps-grid { grid-template-columns: 1fr; gap: 40px; }
+.steps-grid::before { display: none; }
+.step { flex-direction: row; text-align: left; gap: 24px; padding: 0; }
+.step-number { font-size: 40px; min-width: 48px; }
+.footer-top { flex-direction: column; gap: 40px; }
+.footer-nav { flex-direction: column; gap: 28px; }
+.footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+.cursor { display: none; }
+body { cursor: auto; }
+button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 }
 
 @media (max-width: 480px) {
-  #hero h1 { font-size: 38px; }
-  #modal { padding: 40px 24px 32px; }
+#hero h1 { font-size: 42px; }
+#modal { padding: 40px 24px 32px; }
+.products-grid { grid-template-columns: 1fr; }
 }
 </style>
 
 </head>
 <body>
 
-<!-- Custom Cursor -->
-
 <div class="cursor" id="cursor"></div>
 
-<!-- ============================================
-     MODAL OVERLAY
-     ============================================ -->
+<!-- MODAL -->
 
-<div id="modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Únete a l'Olimpo">
+<div id="modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Únete al Olimpo">
   <div id="modal">
     <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
-
-```
-<!-- Hammer Icon -->
-<div class="modal-icon">
-  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 32L20 20M20 20L28 8L36 16L24 24M20 20L14 26" stroke="#A8B2BC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="30" y="4" width="8" height="14" rx="1" transform="rotate(45 30 4)" stroke="#A8B2BC" stroke-width="1.5"/>
-  </svg>
-</div>
-
-<div class="modal-rule"></div>
-
-<p class="eyebrow">Acceso anticipado — El Olimpo te abre sus puertas</p>
-
-<!-- Form content -->
-<div id="modal-form-wrap">
-  <h2>Tu Ritual<br>Comienza Aquí</h2>
-  <p>Te ayudamos a definir la mejor rutina de cuidado para ti.</p>
-
-  <div class="form-group">
-    <input type="email" class="forge-input" id="modal-email" placeholder="Tu email — define tu ritual" autocomplete="email">
-    <button class="forge-btn" id="modal-submit">Forjar Mi Acceso</button>
-  </div>
-  <p class="microcopy">Sin spam. Sin ruido. Cancela cuando quieras.</p>
-</div>
-
-<!-- Success state -->
-<div class="modal-success" id="modal-success">
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#A8B2BC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60">
-    <circle cx="24" cy="24" r="20"/>
-    <path d="M15 24l7 7 11-14"/>
-  </svg>
-  <h3>Estás en la Forja.</h3>
-  <span>El fuego llega pronto.</span>
-</div>
-
-<!-- Meander decoration -->
-<div class="modal-meander">
-  <svg width="100%" height="8" viewBox="0 0 520 8" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 4 L4 4 L4 0 L8 0 L8 8 L12 8 L12 4 L16 4 L16 0 L20 0 L20 8 L24 8 L24 4 L28 4 L28 0 L32 0 L32 8 L36 8 L36 4 L40 4 L40 0 L44 0 L44 8 L48 8 L48 4 L52 4" stroke="#A8B2BC" stroke-width="1" fill="none" stroke-linecap="square"/>
-  </svg>
-</div>
-```
-
+    <div class="modal-icon">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 32L20 20M20 20L28 8L36 16L24 24M20 20L14 26" stroke="#A8B2BC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="30" y="4" width="8" height="14" rx="1" transform="rotate(45 30 4)" stroke="#A8B2BC" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="modal-rule"></div>
+    <p class="eyebrow">Acceso anticipado — El Olimpo te abre sus puertas</p>
+    <div id="modal-form-wrap">
+      <h2>Tu Ritual<br>Comienza Aquí</h2>
+      <p>Te ayudamos a definir la mejor rutina de cuidado para ti.</p>
+      <div class="form-group">
+        <input type="email" class="forge-input" id="modal-email" placeholder="Tu email — define tu ritual" autocomplete="email">
+        <button class="forge-btn" id="modal-submit">Forjar Mi Acceso</button>
+      </div>
+      <p class="microcopy">Sin spam. Sin ruido. Cancela cuando quieras.</p>
+    </div>
+    <div class="modal-success" id="modal-success">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#A8B2BC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60">
+        <circle cx="24" cy="24" r="20"/>
+        <path d="M15 24l7 7 11-14"/>
+      </svg>
+      <h3>Estás en la Forja.</h3>
+      <span>El fuego llega pronto.</span>
+    </div>
+    <div class="modal-meander">
+      <svg width="100%" height="8" viewBox="0 0 520 8" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 4L4 4L4 0L8 0L8 8L12 8L12 4L16 4L16 0L20 0L20 8L24 8L24 4L28 4L28 0L32 0L32 8L36 8L36 4L40 4L40 0L44 0L44 8L48 8L48 4L52 4L52 0L56 0L56 8L60 8L60 4L64 4" stroke="#A8B2BC" stroke-width="1" fill="none" stroke-linecap="square"/>
+      </svg>
+    </div>
   </div>
 </div>
 
-<!-- ============================================
-     NAVIGATION
-     ============================================ -->
+<!-- NAV -->
 
 <nav id="navbar">
   <a href="#" class="nav-logo">
@@ -1132,51 +682,40 @@ footer {
     </svg>
     HEFESTO
   </a>
-
   <ul class="nav-links">
-    <li><a href="#origen">El Origen de Hefesto </a></li>
+    <li><a href="#origen">El Origen</a></li>
     <li><a href="#arsenal">Las Herramientas</a></li>
     <li><a href="#ritual">El Ritual</a></li>
-    <li><a href="#hermandad">El Olimpo</a></li>
+    <li><a href="#olimpo">El Olimpo</a></li>
   </ul>
-
-<a href="#" class="nav-cta" id="nav-cta-btn">Unete al Olimpo</a>
-
+  <a href="#" class="nav-cta" id="nav-cta-btn">Únete al Olimpo</a>
   <button class="hamburger" id="hamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile Menu -->
-
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#origen" class="mobile-link">El Origen de Hefesto</a>
+  <a href="#origen"  class="mobile-link">El Origen</a>
   <a href="#arsenal" class="mobile-link">Las Herramientas</a>
-  <a href="#ritual" class="mobile-link">El Ritual</a>
-  <a href="#hermandad" class="mobile-link">El Olimpo</a>
+  <a href="#ritual"  class="mobile-link">El Ritual</a>
+  <a href="#olimpo"  class="mobile-link">El Olimpo</a>
 </div>
 
-<!-- ============================================
-     HERO
-     ============================================ -->
+<!-- HERO -->
 
-
-```
-<h1>Alcanza<br>tu<br>Olimpo</h1>
-
-<p class="hero-sub">Forga tu propio Destino.</p>
-
-<div class="hero-form">
-  <div class="form-group">
-    <input type="email" class="forge-input" id="hero-email" placeholder="Escribe tu mail" autocomplete="email">
-    <button class="forge-btn" id="hero-submit">Unirme al Olimpo</button>
+<section id="hero">
+  <div class="hero-content">
+    <p class="eyebrow hero-eyebrow">Las Herramientas del Olimpo</p>
+    <h1>Alcanza<br>tu<br>Olimpo</h1>
+    <p class="hero-sub">Forja tu propio Destino.</p>
+    <div class="hero-form">
+      <div class="form-group">
+        <input type="email" class="forge-input" id="hero-email" placeholder="Escribe tu mail" autocomplete="email">
+        <button class="forge-btn" id="hero-submit">Unirme al Olimpo</button>
+      </div>
+      <p class="microcopy">Acceso exclusivo para las 100 primeras personas.</p>
+    </div>
   </div>
-  <p class="microcopy">Acceso exclusivo para las 100 primeras personas.</p>
-</div>
-```
-
-  </div>
-
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
     <span>Descubre</span>
@@ -1185,9 +724,7 @@ footer {
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     ORIGIN / MYTHOLOGY
-     ============================================ -->
+<!-- ORIGEN -->
 
 <section id="origen" class="bg-deep">
   <div class="section-inner">
@@ -1195,9 +732,9 @@ footer {
       <p class="eyebrow">Acerca de Hefesto</p>
       <h2>Hefesto nació en<br>Barcelona</h2>
       <p>Del sueño de crear un espacio dedicado exclusivamente al hombre que quiere cuidarse y elevarse. No encontrábamos un lugar que nos representara. Un espacio donde la calidad, el criterio y la identidad masculina fueran el centro. Así nació Hefesto.</p>
-      <p>Cada producto ha sido seleccionado con un propósito: mejorar tu ritual diario para que puedas presentarte al mundo en tu mejor versión y alcanzar todo lo que te propones. Porque cuidarse no es vanidad. Es disciplina. Es respeto por ti mismo. Es la base desde la que construyes todo lo demás.
-Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su espacio y no lo encontraba.</p> 
-      </p>Bienvenido a tu Olimpo.</p>
+      <p>Cada producto ha sido seleccionado con un propósito: mejorar tu ritual diario para que puedas presentarte al mundo en tu mejor versión y alcanzar todo lo que te propones. Porque cuidarse no es vanidad. Es disciplina. Es respeto por ti mismo. Es la base desde la que construyes todo lo demás.</p>
+      <p>Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su espacio y no lo encontraba.</p>
+      <p>Bienvenido a tu Olimpo.</p>
     </div>
     <div class="origen-visual reveal reveal-delay-2">
       <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1211,9 +748,7 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     PRESS STRIP
-     ============================================ -->
+<!-- PRESS -->
 
 <section id="prensa">
   <div class="press-inner">
@@ -1230,21 +765,18 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     PRODUCT SHOWCASE
-     ============================================ -->
+<!-- ARSENAL -->
 
-<section id="Las Herramientas" class="bg-base">
+<section id="arsenal" class="bg-base">
   <div class="section-inner">
     <div class="section-header reveal">
       <p class="eyebrow">Las Herramientas</p>
-      <h2>Eleva tu rutina</h2>
-      <p>Cuidarse es prepararse a que te pase lo mejor .</p>
+      <h2>Eleva tu Rutina</h2>
+      <p>Cuidarse es prepararse a que te pase lo mejor.</p>
     </div>
+    <div class="products-grid">
 
 ```
-<div class="products-grid">
-  <!-- Rostro -->
   <div class="product-card reveal">
     <div class="product-img">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1256,15 +788,13 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
     </div>
     <div class="product-info">
       <h3>Rostro</h3>
-      <p class="product-descriptor">Limpiador facial, Hidratante,Spf 50.</p>
+      <p class="product-descriptor">Limpiador facial, Hidratante, SPF 50.</p>
       <div class="product-bottom">
-        <span class="product-price"></span>
         <button class="product-btn">Descubrir</button>
       </div>
     </div>
   </div>
 
-  <!-- Cabello -->
   <div class="product-card reveal reveal-delay-1">
     <div class="product-img">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1276,15 +806,13 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
     </div>
     <div class="product-info">
       <h3>Cabello</h3>
-      <p class="product-descriptor">Champu anti-caspa, Loción anti-caída.</p>
+      <p class="product-descriptor">Champú anti-caspa, Loción anti-caída.</p>
       <div class="product-bottom">
-        <span class="product-price"></span>
         <button class="product-btn">Descubrir</button>
       </div>
     </div>
   </div>
 
-  <!-- Cuerpo -->
   <div class="product-card reveal reveal-delay-2">
     <div class="product-img">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1297,13 +825,11 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
       <h3>Cuerpo</h3>
       <p class="product-descriptor">Gel de ducha, Desodorante, Hidratante corporal.</p>
       <div class="product-bottom">
-        <span class="product-price"></span>
         <button class="product-btn">Descubrir</button>
       </div>
     </div>
   </div>
 
-  <!-- Fudamentales -->
   <div class="product-card reveal reveal-delay-3">
     <div class="product-img">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1316,11 +842,11 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
       <h3>Fundamentales</h3>
       <p class="product-descriptor">Raspa lengua, Filtro de ducha.</p>
       <div class="product-bottom">
-        <span class="product-price"></span>
         <button class="product-btn">Descubrir</button>
       </div>
     </div>
   </div>
+
 </div>
 ```
 
@@ -1329,9 +855,7 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     HOW IT WORKS / RITUAL
-     ============================================ -->
+<!-- RITUAL -->
 
 <section id="ritual" class="bg-deep">
   <div class="section-inner">
@@ -1339,146 +863,123 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
       <p class="eyebrow">El Ritual</p>
       <h2>Tres Pasos.<br>Todo Dios los Sigue.</h2>
     </div>
-
-```
-<div class="steps-grid">
-  <div class="step reveal">
-    <div>
-      <div class="step-number">01</div>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 18L11 11M11 11L15 4L21 10L14 17M11 11L8 14"/>
-          <rect x="16" y="2" width="5" height="9" rx="1" transform="rotate(45 16 2)" stroke-width="1.5"/>
-        </svg>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div>
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 18L11 11M11 11L15 4L21 10L14 17M11 11L8 14"/>
+              <rect x="16" y="2" width="5" height="9" rx="1" transform="rotate(45 16 2)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Forjar</h3>
+          <p>Elige tu arma. Selecciona las herramientas creadas para tu cuerpo.</p>
+        </div>
       </div>
-      <h3>Forjar</h3>
-      <p>Elige tu arma. Selecciona las herramientas creadas para tu cuerpo.</p>
-    </div>
-  </div>
-
-  <div class="step reveal reveal-delay-2">
-    <div>
-      <div class="step-number">02</div>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-          <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
-        </svg>
+      <div class="step reveal reveal-delay-2">
+        <div>
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+              <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+            </svg>
+          </div>
+          <h3>Refinar</h3>
+          <p>Ejecuta el ritual. Precisión. Control. Consistencia.</p>
+        </div>
       </div>
-      <h3>Refinar</h3>
-      <p>Ejecuta el ritual. Precisión. Control. Consistencia.</p>
-    </div>
-  </div>
-
-  <div class="step reveal reveal-delay-4">
-    <div>
-      <div class="step-number">03</div>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/>
-        </svg>
+      <div class="step reveal reveal-delay-4">
+        <div>
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/>
+            </svg>
+          </div>
+          <h3>Ascender</h3>
+          <p>Mantén el estándar. Cada día. Sin excepciones.</p>
+        </div>
       </div>
-      <h3>Ascender</h3>
-      <p>Mantén el estándar. Cada día. Sin excepciones.</p>
     </div>
-  </div>
-</div>
-```
-
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     TESTIMONIALS
-     ============================================ -->
+<!-- HERMANDAD — hidden, preserved. To re-enable: remove #hermandad { display:none } from CSS -->
 
-<section id="El Olimpo" class="bg-base">
+<section id="hermandad" class="bg-base">
   <div class="section-inner">
     <div class="section-header reveal">
       <p class="eyebrow">La Hermandad</p>
       <h2>Los Dioses No Necesitan<br>Reseñas. Los Hombres, Sí.</h2>
     </div>
-
-```
-<div class="testimonials-grid">
-  <div class="testimonial-card reveal">
-    <div class="stars">
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+        </div>
+        <blockquote>"El nivel de precisión es otro mundo. Nunca volveré atrás."</blockquote>
+        <p class="testimonial-author">Carlos M. — Madrid</p>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+        </div>
+        <blockquote>"Finalmente una marca que entiende lo que un hombre necesita."</blockquote>
+        <p class="testimonial-author">Alejandro R. — Barcelona</p>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-4">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+          <svg viewBox="0 0 14 14" fill="#A8B2BC"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
+        </div>
+        <blockquote>"El kit completo cambió completamente mi rutina. Brutal."</blockquote>
+        <p class="testimonial-author">Diego F. — Valencia</p>
+      </div>
     </div>
-    <blockquote>"El nivel de precisión es otro mundo. Nunca volveré atrás."</blockquote>
-    <p class="testimonial-author">Carlos M. — Madrid</p>
-  </div>
-
-  <div class="testimonial-card reveal reveal-delay-2">
-    <div class="stars">
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-    </div>
-    <blockquote>"Finalmente una marca que entiende lo que un hombre necesita."</blockquote>
-    <p class="testimonial-author">Alejandro R. — Barcelona</p>
-  </div>
-
-  <div class="testimonial-card reveal reveal-delay-4">
-    <div class="stars">
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-      <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z"/></svg>
-    </div>
-    <blockquote>"El kit completo cambió completamente mi rutina. Brutal."</blockquote>
-    <p class="testimonial-author">Diego F. — Valencia</p>
-  </div>
-</div>
-
-<p class="social-proof reveal">+4.800 hombres ya están en la forja.</p>
-```
-
+    <p class="social-proof reveal">+4.800 hombres ya están en la forja.</p>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ============================================
-     SECONDARY CTA
-     ============================================ -->
+<!-- EL OLIMPO / SECONDARY CTA -->
 
-<section id="cta-footer" class="bg-deep">
-  <!-- Background hammer -->
+<section id="olimpo" class="bg-deep">
   <svg class="cta-hammer" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M80 320L200 200M200 200L280 80L360 160L240 280M200 200L140 260" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
     <rect x="260" y="40" width="80" height="140" rx="4" transform="rotate(45 260 40)" stroke="currentColor" stroke-width="8"/>
   </svg>
-
   <div class="section-inner" style="position:relative;z-index:2;text-align:center;">
     <p class="eyebrow reveal">La Forja te Espera</p>
     <h2 class="reveal reveal-delay-1">Tu Ritual<br>Comienza Aquí</h2>
-    <p class="reveal reveal-delay-2" style="color:var(--white-dim);margin-bottom:40px;font-size:15px;">
-      Únete a la forja. Acceso anticipado. Ofertas exclusivas. Drops de la hermandad.
-    </p>
-    <div class="hero-form reveal reveal-delay-3">
+    <p class="cta-sub reveal reveal-delay-2">Únete a la forja. Acceso anticipado. Ofertas exclusivas. Drops de la hermandad.</p>
+    <div class="cta-form reveal reveal-delay-3">
       <div class="form-group">
         <input type="email" class="forge-input" id="footer-email" placeholder="Tu email — entra en la forja" autocomplete="email">
-        <button class="forge-btn" id="footer-submit">Unete al Olimpo</button>
+        <button class="forge-btn" id="footer-submit">Únete al Olimpo</button>
       </div>
       <p class="microcopy">Sin spam. Sin ruido. Cancela cuando quieras.</p>
     </div>
   </div>
 </section>
 
-<!-- ============================================
-     FOOTER
-     ============================================ -->
+<!-- FOOTER -->
 
 <footer>
   <div class="footer-inner">
@@ -1487,84 +988,70 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
         <div class="footer-brand">HEFESTO</div>
         <div class="footer-tagline">Forjado en España</div>
       </div>
-
-```
-  <div class="footer-nav">
-    <div class="footer-col">
-      <h4>Secciones</h4>
-      <ul>
-        <li><a href="#origen">Acerca de Hefesto</a></li>
-        <li><a href="#arsenal">Las Herramientas</a></li>
-        <li><a href="#ritual">El Ritual</a></li>
-        <li><a href="#hermandad">El Olimpo</a></li>
-      </ul>
+      <div class="footer-nav">
+        <div class="footer-col">
+          <h4>Secciones</h4>
+          <ul>
+            <li><a href="#origen">Acerca de Hefesto</a></li>
+            <li><a href="#arsenal">Las Herramientas</a></li>
+            <li><a href="#ritual">El Ritual</a></li>
+            <li><a href="#olimpo">El Olimpo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Soporte</h4>
+          <ul>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Legal</a></li>
+            <li><a href="#">Privacidad</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hefesto</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Prensa</a></li>
+            <li><a href="#">Afiliados</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+          </svg>
+        </a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Soporte</h4>
-      <ul>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">Legal</a></li>
-        <li><a href="#">Privacidad</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Hefesto. Todos los derechos reservados. Forjado en España.</p>
+      <p class="footer-legal">Las herramientas del Olimpo para el hombre moderno.</p>
     </div>
-    <div class="footer-col">
-      <h4>Hefesto</h4>
-      <ul>
-        <li><a href="#">Sobre nosotros</a></li>
-        <li><a href="#">Prensa</a></li>
-        <li><a href="#">Afiliados</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-socials">
-    <!-- Instagram -->
-    <a href="#" class="social-btn" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5"/>
-        <circle cx="12" cy="12" r="5"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-    <!-- TikTok -->
-    <a href="#" class="social-btn" aria-label="TikTok">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
-      </svg>
-    </a>
-  </div>
-</div>
-
-<div class="footer-bottom">
-  <p class="footer-legal">© 2026 Hefesto. Todos los derechos reservados. Forjado en España.</p>
-  <p class="footer-legal">Las herramientas del Olimpo para el hombre moderno.</p>
-</div>
-```
-
   </div>
 </footer>
-
-<!-- Mobile Sticky CTA -->
 
 <div id="sticky-mobile">
   <button class="forge-btn" id="sticky-btn">Unirse al Olimpo</button>
 </div>
 
-<!-- ============================================
-     JAVASCRIPT
-     ============================================ -->
-
 <script>
-(function() {
+(function () {
   'use strict';
 
-  /* ---- Custom Cursor ---- */
+  /* Cursor */
   const cursor = document.getElementById('cursor');
   if (cursor && window.matchMedia('(pointer: fine)').matches) {
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      cursor.style.top  = e.clientY + 'px';
     });
     document.querySelectorAll('a, button, .product-card, .forge-input').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
@@ -1572,166 +1059,121 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
     });
   }
 
-  /* ---- Modal Logic ---- */
-  const STORAGE_KEY = 'hefesto_forge_seen';
-  const SEVEN_DAYS  = 7 * 24 * 60 * 60 * 1000;
-  const overlay     = document.getElementById('modal-overlay');
-  const modalClose  = document.getElementById('modal-close');
-  const navCta      = document.getElementById('nav-cta-btn');
-  const stickyBtn   = document.getElementById('sticky-btn');
+  /* Modal */
+  const STORAGE_KEY  = 'hefesto_olimpo_seen';
+  const SEVEN_DAYS   = 604800000;
+  const overlay      = document.getElementById('modal-overlay');
+  const modalClose   = document.getElementById('modal-close');
+  const navCta       = document.getElementById('nav-cta-btn');
+  const stickyBtn    = document.getElementById('sticky-btn');
 
   function openModal() {
     overlay.classList.remove('hidden');
     requestAnimationFrame(() => overlay.classList.add('visible'));
     document.body.style.overflow = 'hidden';
   }
-
   function closeModal() {
     overlay.classList.remove('visible');
-    setTimeout(() => {
-      overlay.classList.add('hidden');
-      document.body.style.overflow = '';
-    }, 400);
+    setTimeout(() => { overlay.classList.add('hidden'); document.body.style.overflow = ''; }, 400);
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
   }
-
   function shouldShowModal() {
     const seen = localStorage.getItem(STORAGE_KEY);
-    if (!seen) return true;
-    return (Date.now() - parseInt(seen, 10)) > SEVEN_DAYS;
+    return !seen || (Date.now() - parseInt(seen, 10)) > SEVEN_DAYS;
   }
 
-  // Auto-open on load
-  if (shouldShowModal()) {
-    setTimeout(openModal, 800);
-  }
-
-  // Close triggers
+  if (shouldShowModal()) setTimeout(openModal, 800);
   modalClose.addEventListener('click', closeModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  // Manual open triggers
-  if (navCta) navCta.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  if (navCta)    navCta.addEventListener('click',    e => { e.preventDefault(); openModal(); });
   if (stickyBtn) stickyBtn.addEventListener('click', openModal);
 
-  /* ---- Form Submission Handler ---- */
-  function handleSubmit(emailInput, formWrap, successWrap) {
-    const email = emailInput.value.trim();
+  /* Form handler */
+  function handleSubmit(input, formWrap, successWrap) {
+    const email = input.value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      emailInput.style.borderColor = '#e05252';
-      emailInput.focus();
-      setTimeout(() => emailInput.style.borderColor = '', 1500);
+      input.style.borderColor = '#c0504a';
+      input.focus();
+      setTimeout(() => input.style.borderColor = '', 1600);
       return;
     }
-
-    // TODO: Replace with your Klaviyo / Mailchimp endpoint
-    console.log('Email captured:', email);
-
+    console.log('Hefesto — email captured:', email); // → swap for Klaviyo/Mailchimp endpoint
     if (formWrap && successWrap) {
       formWrap.style.display = 'none';
       successWrap.classList.add('visible');
-      setTimeout(() => {
-        if (overlay && !overlay.classList.contains('hidden')) closeModal();
-      }, 2500);
+      setTimeout(() => { if (!overlay.classList.contains('hidden')) closeModal(); }, 2500);
     } else {
-      emailInput.value = '';
-      const btn = emailInput.nextElementSibling;
+      input.value = '';
+      const btn = input.nextElementSibling;
       if (btn) {
-        const original = btn.textContent;
+        const orig = btn.textContent;
         btn.textContent = '✓ ¡Estás dentro!';
-        btn.style.background = '#1A3550';
-        btn.style.color = '#A8B2BC';
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.style.background = '';
-          btn.style.color = '';
-        }, 3000);
+        btn.style.cssText = 'background:#1A3550;color:#A8B2BC;';
+        setTimeout(() => { btn.textContent = orig; btn.style.cssText = ''; }, 3000);
       }
     }
   }
 
-  // Modal form
-  const modalSubmit = document.getElementById('modal-submit');
-  const modalEmail  = document.getElementById('modal-email');
-  const modalFormWrap = document.getElementById('modal-form-wrap');
-  const modalSuccess  = document.getElementById('modal-success');
-  if (modalSubmit) {
-    modalSubmit.addEventListener('click', () => handleSubmit(modalEmail, modalFormWrap, modalSuccess));
-    modalEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(modalEmail, modalFormWrap, modalSuccess); });
+  const mSubmit = document.getElementById('modal-submit');
+  const mEmail  = document.getElementById('modal-email');
+  const mWrap   = document.getElementById('modal-form-wrap');
+  const mOk     = document.getElementById('modal-success');
+  if (mSubmit) {
+    mSubmit.addEventListener('click', () => handleSubmit(mEmail, mWrap, mOk));
+    mEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(mEmail, mWrap, mOk); });
   }
 
-  // Hero form
-  const heroSubmit = document.getElementById('hero-submit');
-  const heroEmail  = document.getElementById('hero-email');
-  if (heroSubmit) {
-    heroSubmit.addEventListener('click', () => handleSubmit(heroEmail, null, null));
-    heroEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(heroEmail, null, null); });
+  const hSubmit = document.getElementById('hero-submit');
+  const hEmail  = document.getElementById('hero-email');
+  if (hSubmit) {
+    hSubmit.addEventListener('click', () => handleSubmit(hEmail, null, null));
+    hEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(hEmail, null, null); });
   }
 
-  // Footer form
-  const footerSubmit = document.getElementById('footer-submit');
-  const footerEmail  = document.getElementById('footer-email');
-  if (footerSubmit) {
-    footerSubmit.addEventListener('click', () => handleSubmit(footerEmail, null, null));
-    footerEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(footerEmail, null, null); });
+  const fSubmit = document.getElementById('footer-submit');
+  const fEmail  = document.getElementById('footer-email');
+  if (fSubmit) {
+    fSubmit.addEventListener('click', () => handleSubmit(fEmail, null, null));
+    fEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(fEmail, null, null); });
   }
 
-  /* ---- Scroll Animations ---- */
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer  = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
+  /* Scroll reveal */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  revealEls.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* ---- Navbar Scroll ---- */
-  const navbar    = document.getElementById('navbar');
-  const heroSection = document.getElementById('hero');
+  /* Navbar + sticky */
+  const navbar       = document.getElementById('navbar');
+  const heroEl       = document.getElementById('hero');
   const stickyMobile = document.getElementById('sticky-mobile');
-
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    if (scrollY > 40) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-
-    // Mobile sticky bar — show when hero is out of view
-    const heroBottom = heroSection.getBoundingClientRect().bottom;
-    if (heroBottom < 0) stickyMobile.classList.add('visible');
-    else stickyMobile.classList.remove('visible');
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+    stickyMobile.classList.toggle('visible', heroEl.getBoundingClientRect().bottom < 0);
   }, { passive: true });
 
-  /* ---- Nav Scroll Spy ---- */
-  const sections  = document.querySelectorAll('section[id]');
-  const navLinks  = document.querySelectorAll('.nav-links a');
-
-  const spyObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+  /* Scroll spy */
+  const spyIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
         });
       }
     });
   }, { threshold: 0.4 });
-  sections.forEach(s => spyObserver.observe(s));
+  document.querySelectorAll('section[id]').forEach(s => spyIO.observe(s));
 
-  /* ---- Mobile Menu ---- */
-  const hamburger   = document.getElementById('hamburger');
-  const mobileMenu  = document.getElementById('mobile-menu');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
-
+  /* Mobile menu */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open');
     document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
   });
-
-  mobileLinks.forEach(link => {
+  document.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
       mobileMenu.classList.remove('open');
@@ -1739,14 +1181,11 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
     });
   });
 
-  /* ---- Smooth scroll for all anchor links ---- */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function (e) {
       const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
 
@@ -1755,3 +1194,4 @@ Creado por Nathan Bensalem. Porque yo también fui ese hombre que buscaba su esp
 
 </body>
 </html>
+
