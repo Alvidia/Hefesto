@@ -87,7 +87,6 @@ line-height: 1.05;
 letter-spacing: -0.01em;
 }
 
-/* Scroll Animations */
 .reveal {
 opacity: 0;
 transform: translateY(40px);
@@ -99,7 +98,6 @@ transition: opacity 0.7s var(–ease-out), transform 0.7s var(–ease-out);
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-/* Modal */
 #modal-overlay {
 position: fixed; inset: 0;
 background: rgba(8,15,24,0.88);
@@ -167,7 +165,6 @@ to   { stroke-dashoffset: 0;  opacity: 1; }
 .modal-success h3 { font-size: 22px; color: var(–white); text-transform: uppercase; }
 .modal-success span { color: var(–steel); font-size: 14px; font-style: italic; }
 
-/* Forms */
 .form-group { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 
 .forge-input {
@@ -210,7 +207,6 @@ font-size: 11px; color: var(–steel-muted);
 text-align: center; margin-top: 8px;
 }
 
-/* Nav */
 nav {
 position: fixed; top: 0; left: 0; right: 0;
 z-index: 1000; padding: 0 40px; height: 68px;
@@ -291,7 +287,6 @@ transition: color 0.2s;
 }
 .mobile-menu a:hover { color: var(–steel); }
 
-/* Hero */
 #hero {
 min-height: 100vh;
 display: flex; flex-direction: column;
@@ -316,17 +311,9 @@ margin-bottom: 20px; line-height: 0.95;
 animation: fade-up 0.9s var(–ease-out) 0.4s both;
 }
 
-.hero-sub {
-font-size: clamp(16px, 2vw, 20px);
-color: var(–white-dim); margin-bottom: 48px;
-font-style: italic; font-family: var(–font-display);
-letter-spacing: 0.06em;
-animation: fade-up 0.9s var(–ease-out) 0.6s both;
-}
-
 .hero-form {
 max-width: 460px; margin: 0 auto;
-animation: fade-up 0.9s var(–ease-out) 0.8s both;
+animation: fade-up 0.9s var(–ease-out) 0.6s both;
 }
 
 .scroll-indicator {
@@ -334,7 +321,7 @@ position: absolute; bottom: 36px;
 left: 50%; transform: translateX(-50%);
 display: flex; flex-direction: column;
 align-items: center; gap: 8px;
-animation: fade-up 1s var(–ease-out) 1.4s both;
+animation: fade-up 1s var(–ease-out) 1s both;
 }
 .scroll-line {
 width: 1px; height: 48px;
@@ -355,14 +342,12 @@ from { opacity: 0; transform: translateY(32px); }
 to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Sections */
 section { padding: 100px 40px; position: relative; }
 .section-inner { max-width: 1160px; margin: 0 auto; }
 .section-divider { width: 100%; height: 1px; background: rgba(168,178,188,0.1); }
 .bg-deep { background: var(–forge-deep); }
 .bg-base { background: var(–forge); }
 
-/* Origen */
 #origen .section-inner {
 display: grid; grid-template-columns: 1fr 1fr;
 gap: 80px; align-items: center;
@@ -396,7 +381,6 @@ border: 1px solid rgba(168,178,188,0.12); border-radius: 2px;
 }
 .origen-visual svg { width: 140px; height: 140px; opacity: 0.4; color: var(–steel); }
 
-/* Arsenal */
 #arsenal .section-header { text-align: center; margin-bottom: 60px; }
 #arsenal .section-header .eyebrow { margin-bottom: 16px; }
 #arsenal .section-header h2 {
@@ -405,7 +389,11 @@ text-transform: uppercase; color: var(–white); margin-bottom: 12px;
 }
 #arsenal .section-header p { color: var(–white-dim); font-size: 15px; }
 
-.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.products-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+}
 
 .product-card {
 background: var(–forge-mid);
@@ -450,76 +438,8 @@ transition: background 0.25s, color 0.25s;
 }
 .product-btn:hover { background: var(–steel); color: var(–forge); }
 
-/* Ritual */
-#ritual .section-header { text-align: center; margin-bottom: 72px; }
-#ritual .section-header .eyebrow { margin-bottom: 16px; }
-#ritual .section-header h2 {
-font-size: clamp(30px, 4.5vw, 54px);
-text-transform: uppercase; color: var(–white);
-}
-
-.steps-grid {
-display: grid; grid-template-columns: repeat(3, 1fr);
-gap: 0; position: relative;
-}
-.steps-grid::before {
-content: ‘’; position: absolute;
-top: 84px;
-left: calc(16.66% + 20px); right: calc(16.66% + 20px);
-height: 1px;
-background: repeating-linear-gradient(
-to right,
-var(–steel-muted) 0, var(–steel-muted) 6px,
-transparent 6px, transparent 14px
-);
-}
-.step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 32px; }
-.step-number {
-font-family: var(–font-display); font-size: 56px;
-font-weight: 700; color: var(–steel);
-line-height: 1; margin-bottom: 16px; opacity: 0.5;
-}
-.step-icon {
-width: 56px; height: 56px;
-border: 1px solid var(–steel-halo); border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-margin: 0 auto 28px; background: var(–forge-deep);
-}
-.step-icon svg { width: 24px; height: 24px; color: var(–steel); }
-.step h3 {
-font-size: 18px; text-transform: uppercase;
-color: var(–white); margin-bottom: 12px; letter-spacing: 0.05em;
-}
-.step p { font-size: 14px; color: var(–white-dim); line-height: 1.75; }
-
-/* Press */
-#prensa {
-padding: 48px 40px;
-background: var(–forge-deep);
-border-top: 1px solid rgba(168,178,188,0.07);
-border-bottom: 1px solid rgba(168,178,188,0.07);
-}
-.press-inner {
-max-width: 900px; margin: 0 auto;
-display: flex; align-items: center;
-justify-content: center; gap: 48px; flex-wrap: wrap;
-}
-.press-label {
-font-size: 10px; letter-spacing: 0.25em;
-text-transform: uppercase; color: var(–steel-muted); white-space: nowrap;
-}
-.press-logos { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; justify-content: center; }
-.press-logo {
-font-family: var(–font-display); font-size: 17px;
-font-weight: 600; color: var(–steel-muted);
-letter-spacing: 0.05em; opacity: 0.45; transition: opacity 0.25s;
-}
-.press-logo:hover { opacity: 0.85; }
-
-/* Hermandad — hidden, preserved for future use */
 #hermandad { display: none; }
 
-/* Testimonials internal styles (kept for when section re-enables) */
 .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 48px; }
 .testimonial-card { background: var(–forge-mid); border-top: 2px solid var(–steel); border-radius: 0 0 4px 4px; padding: 32px 28px; }
 .stars { display: flex; gap: 4px; margin-bottom: 20px; }
@@ -528,22 +448,18 @@ letter-spacing: 0.05em; opacity: 0.45; transition: opacity 0.25s;
 .testimonial-author { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(–steel); }
 .social-proof { text-align: center; font-family: var(–font-display); font-size: 22px; color: var(–white); }
 
-/* Secondary CTA */
 #olimpo { background: var(–forge-deep); text-align: center; position: relative; overflow: hidden; }
 .cta-hammer {
 position: absolute; right: -80px; top: 50%;
 transform: translateY(-50%);
 opacity: 0.03; width: 400px; height: 400px; color: var(–steel);
 }
-#olimpo .eyebrow { margin-bottom: 20px; }
 #olimpo h2 {
 font-size: clamp(34px, 5vw, 64px);
-text-transform: uppercase; color: var(–white); margin-bottom: 14px;
+text-transform: uppercase; color: var(–white); margin-bottom: 40px;
 }
-.cta-sub { color: var(–white-dim); margin-bottom: 40px; font-size: 15px; }
 .cta-form { max-width: 460px; margin: 0 auto; }
 
-/* Footer */
 footer {
 background: var(–forge-dark);
 padding: 60px 40px 40px;
@@ -581,7 +497,6 @@ transition: border-color 0.2s, background 0.2s;
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
 .footer-legal { font-size: 12px; color: var(–steel-muted); opacity: 0.55; }
 
-/* Mobile sticky */
 #sticky-mobile {
 display: none; position: fixed;
 bottom: 0; left: 0; right: 0; z-index: 500;
@@ -594,9 +509,8 @@ transition: transform 0.35s var(–ease-out);
 }
 #sticky-mobile.visible { transform: translateY(0); }
 
-/* Responsive */
 @media (max-width: 1024px) {
-.products-grid { grid-template-columns: repeat(2, 1fr); }
+.products-grid { grid-template-columns: repeat(4, minmax(140px, 1fr)); gap: 14px; }
 .footer-nav { gap: 32px; }
 }
 
@@ -609,11 +523,7 @@ nav { padding: 0 24px; }
 #hero { padding: 100px 24px 100px; }
 #origen .section-inner { grid-template-columns: 1fr; gap: 48px; }
 .origen-visual { max-height: 260px; }
-.products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-.steps-grid { grid-template-columns: 1fr; gap: 40px; }
-.steps-grid::before { display: none; }
-.step { flex-direction: row; text-align: left; gap: 24px; padding: 0; }
-.step-number { font-size: 40px; min-width: 48px; }
+.products-grid { grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
 .footer-top { flex-direction: column; gap: 40px; }
 .footer-nav { flex-direction: column; gap: 28px; }
 .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
@@ -625,7 +535,8 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 @media (max-width: 480px) {
 #hero h1 { font-size: 42px; }
 #modal { padding: 40px 24px 32px; }
-.products-grid { grid-template-columns: 1fr; }
+#arsenal .section-inner { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.products-grid { grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 8px; min-width: 480px; }
 }
 </style>
 
@@ -633,8 +544,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 <body>
 
 <div class="cursor" id="cursor"></div>
-
-<!-- MODAL -->
 
 <div id="modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Únete al Olimpo">
   <div id="modal">
@@ -672,8 +581,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
   </div>
 </div>
 
-<!-- NAV -->
-
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -696,15 +603,12 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 <div class="mobile-menu" id="mobile-menu">
   <a href="#origen"  class="mobile-link">El Origen</a>
   <a href="#arsenal" class="mobile-link">Las Herramientas</a>
-  <a href="#ritual"  class="mobile-link">El Ritual</a>
   <a href="#olimpo"  class="mobile-link">El Olimpo</a>
 </div>
 
-<!-- HERO -->
-
 <section id="hero">
   <div class="hero-content">
-    <p class="eyebrow hero-eyebrow">Hefesto. Forga tu propio Destino.</p>
+    <p class="eyebrow hero-eyebrow">Hefesto. Forja tu propio Destino.</p>
     <h1>Alcanza<br>tu<br>Olimpo</h1>
     <div class="hero-form">
       <div class="form-group">
@@ -721,8 +625,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 </section>
 
 <div class="section-divider"></div>
-
-<!-- ORIGEN -->
 
 <section id="origen" class="bg-deep">
   <div class="section-inner">
@@ -746,9 +648,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 
 <div class="section-divider"></div>
 
-
-<!-- ARSENAL -->
-
 <section id="arsenal" class="bg-base">
   <div class="section-inner">
     <div class="section-header reveal">
@@ -771,8 +670,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     <div class="product-info">
       <h3>Rostro</h3>
       <p class="product-descriptor">Limpiador facial, Hidratante, SPF 50.</p>
-      <div class="product-bottom">
-      </div>
+      <div class="product-bottom"></div>
     </div>
   </div>
 
@@ -788,8 +686,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     <div class="product-info">
       <h3>Cabello</h3>
       <p class="product-descriptor">Champú anti-caspa, Loción anti-caída.</p>
-      <div class="product-bottom">
-      </div>
+      <div class="product-bottom"></div>
     </div>
   </div>
 
@@ -804,8 +701,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     <div class="product-info">
       <h3>Cuerpo</h3>
       <p class="product-descriptor">Gel de ducha, Desodorante, Hidratante corporal.</p>
-      <div class="product-bottom">
-      </div>
+      <div class="product-bottom"></div>
     </div>
   </div>
 
@@ -820,8 +716,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     <div class="product-info">
       <h3>Fundamentales</h3>
       <p class="product-descriptor">Raspa lengua, Filtro de ducha.</p>
-      <div class="product-bottom">
-      </div>
+      <div class="product-bottom"></div>
     </div>
   </div>
 
@@ -832,9 +727,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 </section>
 
 <div class="section-divider"></div>
-
-
-<!-- HERMANDAD — hidden, preserved. To re-enable: remove #hermandad { display:none } from CSS -->
 
 <section id="hermandad" class="bg-base">
   <div class="section-inner">
@@ -883,8 +775,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 
 <div class="section-divider"></div>
 
-<!-- EL OLIMPO / SECONDARY CTA -->
-
 <section id="olimpo" class="bg-deep">
   <svg class="cta-hammer" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M80 320L200 200M200 200L280 80L360 160L240 280M200 200L140 260" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -902,8 +792,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
   </div>
 </section>
 
-<!-- FOOTER -->
-
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -917,7 +805,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
           <ul>
             <li><a href="#origen">Acerca de Hefesto</a></li>
             <li><a href="#arsenal">Las Herramientas</a></li>
-            <li><a href="#ritual">El Ritual</a></li>
             <li><a href="#olimpo">El Olimpo</a></li>
           </ul>
         </div>
@@ -969,7 +856,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 (function () {
   'use strict';
 
-  /* Cursor */
   const cursor = document.getElementById('cursor');
   if (cursor && window.matchMedia('(pointer: fine)').matches) {
     document.addEventListener('mousemove', e => {
@@ -982,7 +868,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     });
   }
 
-  /* Modal */
   const STORAGE_KEY  = 'hefesto_olimpo_seen';
   const SEVEN_DAYS   = 604800000;
   const overlay      = document.getElementById('modal-overlay');
@@ -1012,7 +897,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
   if (navCta)    navCta.addEventListener('click',    e => { e.preventDefault(); openModal(); });
   if (stickyBtn) stickyBtn.addEventListener('click', openModal);
 
-  /* Form handler */
   function handleSubmit(input, formWrap, successWrap) {
     const email = input.value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -1021,7 +905,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
       setTimeout(() => input.style.borderColor = '', 1600);
       return;
     }
-    console.log('Hefesto — email captured:', email); // → swap for Klaviyo/Mailchimp endpoint
+    console.log('Hefesto — email captured:', email);
     if (formWrap && successWrap) {
       formWrap.style.display = 'none';
       successWrap.classList.add('visible');
@@ -1031,7 +915,7 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
       const btn = input.nextElementSibling;
       if (btn) {
         const orig = btn.textContent;
-        btn.textContent = '✓ ¡Estás dentro!';
+        btn.textContent = '\u2713 \u00a1Est\u00e1s dentro!';
         btn.style.cssText = 'background:#1A3550;color:#A8B2BC;';
         setTimeout(() => { btn.textContent = orig; btn.style.cssText = ''; }, 3000);
       }
@@ -1044,30 +928,28 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
   const mOk     = document.getElementById('modal-success');
   if (mSubmit) {
     mSubmit.addEventListener('click', () => handleSubmit(mEmail, mWrap, mOk));
-    mEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(mEmail, mWrap, mOk); });
+    mEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(mEmail, mWrap, mOk); });
   }
 
   const hSubmit = document.getElementById('hero-submit');
   const hEmail  = document.getElementById('hero-email');
   if (hSubmit) {
     hSubmit.addEventListener('click', () => handleSubmit(hEmail, null, null));
-    hEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(hEmail, null, null); });
+    hEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(hEmail, null, null); });
   }
 
   const fSubmit = document.getElementById('footer-submit');
   const fEmail  = document.getElementById('footer-email');
   if (fSubmit) {
     fSubmit.addEventListener('click', () => handleSubmit(fEmail, null, null));
-    fEmail.addEventListener('keydown',  e => { if (e.key === 'Enter') handleSubmit(fEmail, null, null); });
+    fEmail.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(fEmail, null, null); });
   }
 
-  /* Scroll reveal */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* Navbar + sticky */
   const navbar       = document.getElementById('navbar');
   const heroEl       = document.getElementById('hero');
   const stickyMobile = document.getElementById('sticky-mobile');
@@ -1076,7 +958,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     stickyMobile.classList.toggle('visible', heroEl.getBoundingClientRect().bottom < 0);
   }, { passive: true });
 
-  /* Scroll spy */
   const spyIO = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1088,7 +969,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
   }, { threshold: 0.4 });
   document.querySelectorAll('section[id]').forEach(s => spyIO.observe(s));
 
-  /* Mobile menu */
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   hamburger.addEventListener('click', () => {
@@ -1104,7 +984,6 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
     });
   });
 
-  /* Smooth scroll */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', function (e) {
       const target = document.querySelector(this.getAttribute('href'));
@@ -1117,4 +996,3 @@ button, .forge-btn, .modal-close, .product-btn { cursor: pointer; }
 
 </body>
 </html>
-
