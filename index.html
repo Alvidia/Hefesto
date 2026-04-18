@@ -936,7 +936,7 @@ button, .forge-btn, .modal-close { cursor: pointer; }
   const v = input.value.trim();
 
   // Basic validation
-  if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+  if (!v) {
     input.style.borderColor = '#c05050';
     input.focus();
     setTimeout(() => input.style.borderColor = '', 1600);
