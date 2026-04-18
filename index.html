@@ -932,69 +932,104 @@ button, .forge-btn, .modal-close { cursor: pointer; }
   sticky && sticky.addEventListener('click', openModal);
 
   /* ── Klaviyo submit ──────────────────────────────────── */
-  async function submit(input, wrap, ok) {
-    const v = input.value.trim();
-    if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-      input.style.borderColor = '#c05050';
-      input.focus();
-      setTimeout(() => input.style.borderColor = '', 1600);
-      return;
-    }
+  async function submit(input, wrap, ok, source = "unknown") {
+  const v = input.value.trim();
 
-    try {
-      await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=TGBsWu', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'revision': '2023-12-15'
-        },
-        body: JSON.stringify({
-          data: {
-            type: 'subscription',
-            attributes: {
-              list_id: 'TDTGxy',
-              email: v
+  // Basic validation
+  if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+    input.style.borderColor = '#c05050';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 1600);
+    return;
+  }
+
+  try {
+    const res = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'revision': '2023-10-15'
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'profile-subscription-bulk-create-job',
+          attributes: {
+            profiles: {
+              data: [
+                {
+                  type: 'profile',
+                  attributes: {
+                    email: v,
+                    properties: {
+                      source: source,
+                      brand: "hefesto"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          relationships: {
+            list: {
+              data: {
+                type: 'list',
+                id: 'TDTGxy'
+              }
             }
           }
-        })
-      });
-    } catch (err) {
-      console.error('Klaviyo error:', err);
+        }
+      })
+    });
+
+    console.log("Klaviyo status:", res.status);
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error("Klaviyo error:", errText);
+      throw new Error("Request failed");
     }
 
+    // SUCCESS UI
     if (wrap && ok) {
       wrap.style.display = 'none';
       ok.classList.add('visible');
-      setTimeout(() => { if (!overlay.classList.contains('hidden')) closeModal(); }, 2500);
+      setTimeout(() => {
+        if (!overlay.classList.contains('hidden')) closeModal();
+      }, 2500);
     } else {
       input.value = '';
       const btn = input.nextElementSibling;
       if (btn) {
         const t = btn.textContent;
-        btn.textContent = '\u2713 \u00a1Est\u00e1s dentro!';
+        btn.textContent = '✓ ¡Estás dentro!';
         btn.style.cssText = 'background:#1A3550;color:#A8B2BC;';
-        setTimeout(() => { btn.textContent = t; btn.style.cssText = ''; }, 3000);
+        setTimeout(() => {
+          btn.textContent = t;
+          btn.style.cssText = '';
+        }, 3000);
       }
     }
+
+  } catch (err) {
+    console.error("Submit failed:", err);
+
+    // Optional: error UI feedback
+    input.style.borderColor = '#c05050';
+    setTimeout(() => input.style.borderColor = '', 2000);
   }
+}
 
-  const mS = document.getElementById('modal-submit');
-  const mE = document.getElementById('modal-email');
-  const mW = document.getElementById('modal-form-wrap');
-  const mO = document.getElementById('modal-success');
-  mS && mS.addEventListener('click', () => submit(mE, mW, mO));
-  mE && mE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(mE, mW, mO); });
+  // MODAL
+mS && mS.addEventListener('click', () => submit(mE, mW, mO, "modal"));
+mE && mE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(mE, mW, mO, "modal"); });
 
-  const hS = document.getElementById('hero-submit');
-  const hE = document.getElementById('hero-email');
-  hS && hS.addEventListener('click', () => submit(hE, null, null));
-  hE && hE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(hE, null, null); });
+// HERO
+hS && hS.addEventListener('click', () => submit(hE, null, null, "hero"));
+hE && hE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(hE, null, null, "hero"); });
 
-  const fS = document.getElementById('footer-submit');
-  const fE = document.getElementById('footer-email');
-  fS && fS.addEventListener('click', () => submit(fE, null, null));
-  fE && fE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(fE, null, null); });
-
+// FOOTER
+fS && fS.addEventListener('click', () => submit(fE, null, null, "footer"));
+fE && fE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(fE, null, null, "footer"); });
   /* ── scroll reveal ───────────────────────────────────── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
