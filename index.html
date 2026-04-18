@@ -961,7 +961,23 @@ button, .forge-btn, .modal-close { cursor: pointer; }
       setTimeout(() => input.style.borderColor = '', 1600);
       return;
     }
-    console.log('Hefesto email:', v); /* → replace with API call */
+    fetch('https://a.klaviyo.com/client/subscriptions/?company_id='TGBsWu', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+    'revision': '2023-12-15'
+  },
+  body: JSON.stringify({
+    data: {
+      type: 'subscription',
+      attributes: {
+        list_id: 'TDTGxy',
+        email: v
+      }
+    }
+  })
+});
+
     if (wrap && ok) {
       wrap.style.display = 'none';
       ok.classList.add('visible');
