@@ -932,6 +932,8 @@ button, .forge-btn, .modal-close { cursor: pointer; }
   sticky && sticky.addEventListener('click', openModal);
 
   /* ── Klaviyo submit ──────────────────────────────────── */
+  console.log("Submit triggered", input.value);
+  
   async function submit(input, wrap, ok, source = "unknown") {
   const v = input.value.trim();
 
