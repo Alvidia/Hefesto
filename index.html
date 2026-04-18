@@ -1019,17 +1019,23 @@ button, .forge-btn, .modal-close { cursor: pointer; }
   }
 }
 
-  // MODAL
-mS && mS.addEventListener('click', () => submit(mE, mW, mO, "modal"));
-mE && mE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(mE, mW, mO, "modal"); });
+  const mS = document.getElementById('modal-submit');
+  const mE = document.getElementById('modal-email');
+  const mW = document.getElementById('modal-form-wrap');
+  const mO = document.getElementById('modal-success');
+  mS && mS.addEventListener('click', () => submit(mE, mW, mO));
+  mE && mE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(mE, mW, mO); });
 
-// HERO
-hS && hS.addEventListener('click', () => submit(hE, null, null, "hero"));
-hE && hE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(hE, null, null, "hero"); });
+  const hS = document.getElementById('hero-submit');
+  const hE = document.getElementById('hero-email');
+  hS && hS.addEventListener('click', () => submit(hE, null, null));
+  hE && hE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(hE, null, null); });
 
-// FOOTER
-fS && fS.addEventListener('click', () => submit(fE, null, null, "footer"));
-fE && fE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(fE, null, null, "footer"); });
+  const fS = document.getElementById('footer-submit');
+  const fE = document.getElementById('footer-email');
+  fS && fS.addEventListener('click', () => submit(fE, null, null));
+  fE && fE.addEventListener('keydown', e => { if (e.key === 'Enter') submit(fE, null, null); });
+  
   /* ── scroll reveal ───────────────────────────────────── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
