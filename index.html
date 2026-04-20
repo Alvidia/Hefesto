@@ -961,25 +961,30 @@ button, .forge-btn, .modal-close { cursor: pointer; }
             'content-type': 'application/json',
             'revision': '2024-07-15'
           },
-          body: JSON.stringify({
-            data: {
-              type: 'subscription',
-              attributes: {
-                list_id: 'TDTGxy',
-                custom_source: 'Hefesto Website',
-                profile: {
-                  data: {
-                    type: 'profile',
-                    attributes: {
-                      email: v
-                    }
-                  }
-                }
-              }
-            }
-          })
+    body: JSON.stringify({
+  data: {
+    type: 'subscription',
+    attributes: {
+      custom_source: 'Hefesto Website',
+      profile: {
+        data: {
+          type: 'profile',
+          attributes: {
+            email: v
+          }
         }
-      );
+      }
+    },
+    relationships: {
+      list: {
+        data: {
+          type: 'list',
+          id: 'TDTGxy'         
+        }
+      }
+    }
+  }
+})
       console.log('Klaviyo status:', res.status);
     } catch (err) {
       console.error('Klaviyo fetch error:', err);
