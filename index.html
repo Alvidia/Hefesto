@@ -959,15 +959,22 @@ button, .forge-btn, .modal-close { cursor: pointer; }
           method: 'POST',
           headers: {
             'content-type': 'application/json',
-            'revision': '2024-10-15'
+            'revision': '2024-07-15'
           },
           body: JSON.stringify({
             data: {
               type: 'subscription',
               attributes: {
                 list_id: 'TDTGxy',
-                email: v,
-                custom_source: 'Hefesto Website'
+                custom_source: 'Hefesto Website',
+                profile: {
+                  data: {
+                    type: 'profile',
+                    attributes: {
+                      email: v
+                    }
+                  }
+                }
               }
             }
           })
