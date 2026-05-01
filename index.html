@@ -607,7 +607,13 @@ footer { background: var(--navy-dark); padding: 60px 40px 40px; border-top: 1px 
   #hero h1 { font-size: 40px; }
   #modal { padding: 36px 20px 30px; }
   .products-grid { gap: 8px; }
-}
+
+  @media (min-width: 769px) {
+    body::before { opacity: 0.018; }
+  }
+  @media (min-width: 1440px) {
+    body::before { opacity: 0.01; }
+  }
 </style>
 </head>
 <body>
